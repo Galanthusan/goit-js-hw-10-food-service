@@ -14,10 +14,10 @@ function onThemeSwitchHandler() {
   const checked = refs.themeSwitch.checked;
 
   if (checked) {
-    onCurrentThemeHandler(Theme.DARK);
+    onCurrentThemeHandler(Theme.DARK, Theme.LIGHT);
     localStorage.setItem('theme', Theme.DARK);
   } else {
-    onCurrentThemeHandler(Theme.LIGHT);
+    onCurrentThemeHandler(Theme.LIGHT, Theme.DARK);
     localStorage.setItem('theme', Theme.LIGHT);
   }
 }
@@ -25,16 +25,11 @@ function onThemeSwitchHandler() {
 const savedTheme = localStorage.getItem('theme');
 
 if (savedTheme === Theme.DARK) {
-  onCurrentThemeHandler(Theme.DARK);
+  onCurrentThemeHandler(Theme.DARK, Theme.LIGHT);
   refs.themeSwitch.checked = true;
 }
 
-function onCurrentThemeHandler(lightTheme, darkTheme) {
-  if (lightTheme === Theme.LIGHT) {
-    refs.body.classList.add(Theme.LIGHT);
-    refs.body.classList.remove(Theme.DARK);
-  } else if (darkTheme === Theme.Dark) {
-    refs.body.classList.add(Theme.DARK);
-    refs.body.classList.remove(Theme.LIGHT);
-  }
+function onCurrentThemeHandler(newTheme, oldTheme) {
+  refs.body.classList.add(newTheme);
+  refs.body.classList.remove(oldTheme);
 }
